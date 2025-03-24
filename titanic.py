@@ -9,3 +9,9 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 
 data = pd.read_csv('Titanic-Dataset.csv')
+data['Age'] = data['Age'].fillna(data['Age'].median())
+data['Embarked'] = data['Embarked'].fillna(data['Embarked'].mode()[0])
+data.drop(columns='Cabin', inplace=True)
+
+
+model = RandomForestClassifier()
