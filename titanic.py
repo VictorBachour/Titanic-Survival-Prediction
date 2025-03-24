@@ -13,5 +13,12 @@ data['Age'] = data['Age'].fillna(data['Age'].median())
 data['Embarked'] = data['Embarked'].fillna(data['Embarked'].mode()[0])
 data.drop(columns='Cabin', inplace=True)
 
+x = data.drop(columns=['Survived', 'Name'])
+y = data['Survived']
 
-model = RandomForestClassifier()
+X_train, X_test, y_train, y_test = train_test_split(x, y, test_size= .2, random_state=42)
+model = LogisticRegression(solver='lbfgs', max_iter=200, C=1.0, penalty='l2')
+model.fit(X_train, y_train)
+
+y_pred = model.predict(y_test)
+print(y_pred)
